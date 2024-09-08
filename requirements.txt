@@ -9,7 +9,7 @@ opencv
 numpy
 scikit-learn
 typing
-import torch
+torch
 torchvision
 torchsummary
 pickle
