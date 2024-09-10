@@ -13,3 +13,4 @@ joblib
 streamlit_option_menu
 hydralit_components
 image_comparison
+requests
