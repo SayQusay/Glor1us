@@ -30,6 +30,14 @@ import pickle
 import joblib
 import os
 import glob
+import gdown
+
+# Fungsi untuk mengunduh file dari Google Drive
+def download_from_gdrive(file_id, output_path):
+    gdown.download(f"https://itsacid.sharepoint.com/:u:/r/sites/BismillahGEMASTIK/Dokumen%20Berbagi/General/Streamlit%20-%20(ALL%20DONE)%20-%20Hover/vgg16_feature_extractor.pth?csf=1&web=1&e=7EqEbY", output_path, quiet=False)
+
+# ID file dari Google Drive (ganti dengan file ID milik Anda)
+output_path = 'vgg16_feature_extractor.pth'  # Nama file yang akan disimpan di lokal
 
 #option menu di sidebar
 with st.sidebar:
