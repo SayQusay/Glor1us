@@ -36,8 +36,17 @@ import requests
 def download_from_teams(url, output_path):
     # Menggunakan requests untuk mengunduh file
     response = requests.get(url)
+    
+    # Cek apakah permintaan berhasil
+    if response.status_code == 200:
+        # Simpan file ke lokal
+        with open(output_path, 'wb') as f:
+            f.write(response.content)
+        st.write(f"File downloaded successfully to {output_path}")
+    else:
+        st.write(f"Failed to download file. Status code: {response.status_code}")
 
-file_url = 'https://itsacid.sharepoint.com/:u:/r/sites/BismillahGEMASTIK/Dokumen%20Berbagi/General/Streamlit%20-%20(ALL%20DONE)%20-%20Hover/vgg16_feature_extractor.pth?csf=1&web=1&e=7EqEbY'  # Ganti dengan URL file dari Teams
+url = 'https://itsacid.sharepoint.com/:u:/r/sites/BismillahGEMASTIK/Dokumen%20Berbagi/General/Streamlit%20-%20(ALL%20DONE)%20-%20Hover/vgg16_feature_extractor.pth?csf=1&web=1&e=7EqEbY'  # Ganti dengan URL file dari Teams
 # ID file dari Google Drive (ganti dengan file ID milik Anda)
 output_path = 'vgg16_feature_extractor.pth'  # Nama file yang akan disimpan di lokal
 
