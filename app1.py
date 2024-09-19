@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #Using for running really "Vision" Web for presentation 
 #pakai def ... (): untuk tiap isi page
 import streamlit as st
