@@ -1002,4 +1002,3 @@ if selected == "Informasi":
 
 
 
->>>>>>> 192907ccc9628a18998b409de3833f851794c2aa
