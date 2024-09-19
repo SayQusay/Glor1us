@@ -11,4 +11,5 @@ torchsummary
 pandas
 joblib
 streamlit_option_menu
+streamlit_image_comparison
 hydralit_components
