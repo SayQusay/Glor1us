@@ -499,9 +499,6 @@ if selected == "Informasi":
 
 
 
-=======
-#Using for running really "Vision" Web for presentation 
-#pakai def ... (): untuk tiap isi page
 import streamlit as st
 from streamlit_option_menu import option_menu
 from streamlit_image_comparison import image_comparison
