@@ -130,9 +130,9 @@ def dashboard_page():
                 <div class="icon-container1">
                     <i class="fas fa-bolt"></i>
                 </div>
-                <h3>Klasifikasi Citra Lebih Cepat Menggunakan Model Hybrid Machine Learning</h3>
+                <h3>Klasifikasi citra lebih cepat menggunakan model Hybrid Machine Learning</h3>
                 <div class="caption1">
-                    <h3>Model Hybrid VGG16-SVM dengan Akurasi Klasifikasi Sebesar 96,36% dan Durasi Komputasi Hanya 66.1 detik</h3>
+                    <h3>Model Hybrid VGG16-SVM dengan akurasi klasifikasi sebesar 96,49% dan durasi komputasi hanya 67 detik</h3>
                 </div>
             </div>
             """,
@@ -201,10 +201,10 @@ def dashboard_page():
                 <div class="icon-container2">
                     <i class="fas fa-brain"></i>
                 </div>
-                <h3>Klasifikasi Jenis Tumor Otak dan Nontumor</h3>
+                <h3>Klasifikasi jenis tumor otak dan nontumor</h3>
                 <div class="caption2">
                     <ul> 
-                        <h3>Jenis Tumor yang Mampu Dideteksi: </h3>
+                        <h3>Jenis tumor yang mampu dideteksi: </h3>
                         <li style="text-align:left;">Meningioma</li>
                         <li style="text-align:left;">Glioma</li>
                         <li style="text-align:left;">Pituitary</li>
@@ -305,9 +305,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Load Models
 vgg_model = models.vgg16(pretrained=False)
 vgg_model.classifier = nn.Sequential(*list(vgg_model.classifier.children())[:-3])
-#vgg_model.load_state_dict(torch.load('GEMASTIK_FINAL_VGG16.pth', map_location=torch.device('cpu')))
-state_dict = torch.load('GEMASTIK_FINAL_VGG16.pth')
-vgg_model.load_state_dict(state_dict, strict=False)
+vgg_model.load_state_dict(torch.load('vgg16_feature_extractor.pth', map_location=torch.device('cpu')))
 vgg_model.to(device) #move model to the device (GPU or CPU)
 vgg_model.eval()
 
@@ -372,6 +370,7 @@ def classification():
                         """
                         ***GLIOMA***
                         - **Asal: Mutasi sel saraf lial, termasuk astrosit, oligodendorsit, dan sel ependymal**
+                        - **Sifat: Ganas**
                         """
                     )
                 elif predicted_class == 'meningioma':
@@ -379,27 +378,29 @@ def classification():
                         """
                         ***MENINGIOMA***
                         - **Asal: Meninges yang menutupi otak dan sumsum tulang belakang**
+                        - **Sifat: Jinak**
                         """
                     )
                 elif predicted_class == 'nontumor':
                     st.markdown (
                         """
-                        ***OTAK SEHAT***
+                        ***OTAK NORMAL***
                         """
                     )
                 elif predicted_class == 'pituitary':
                     st.markdown (
                         """
-                        ***PITUITARI***
-                        - **Asal: Mutasi sel kelenjar pituitari**
+                        ***PITUITARY***
+                        - **Asal: Mutasi sel kelenjar pituitary**
+                        - **Sifat: Jinak**
                         """
                     )
 
-# data = {
-#         'Jenis Tumor': ['Glioma', 'Meningioma', 'Pituitari', 'Lainnya'],
-#         'Jumlah Kasus': [40000, 30000, 10000, 5000]
-#     }
-# df = pd.DataFrame(data)
+data = {
+        'Jenis Tumor': ['Glioma', 'Meningioma', 'Pituitari', 'Lainnya'],
+        'Jumlah Kasus': [40000, 30000, 10000, 5000]
+    }
+df = pd.DataFrame(data)
 
 def set_png_as_page_bg(png_file):
     page_bg_img = '''
@@ -422,10 +423,13 @@ def about():
         # Tab 1: Data Global dan Data Lokal
         with tab1:
             # st.header("Data Global dan Data Lokal")
-            st.header("Apa itu Tumor Otak?")
+            st.write("## Apa itu Tumor Otak?")
             st.write(f"Tumor Otak dan Sistem Saraf Terpusat merupakan kondisi perkembangan jaringan atau sel-sel abnormal di dalam otak dan sumsum tulang belakang")
 
-            st.write("### Penyebab Tumor Otak")
+            st.write("## Gejala Tumor Otak")
+            st.write("Menurut Ananditha, T (2021), estimasi kasus angka kejadian dan kematian di Indonesia mencapai 6.337/5.405 yang disebabkan oleh 3 hal yaitu radiasi, rokok, dan genetik.")
+
+            st.write("### Penyebab Tumor Otak (Source)")
             st.write("#### Faktor Lingkungan:")
             st.write("""
             1. Merokok
@@ -446,10 +450,10 @@ def about():
         # Tab 2: Statistik Kematian akibat Tumor Otak
         with tab2:
             # st.header("Data Global dan Data Lokal")
-            st.header("Data Global")
+            st.write("### Data Global")
             st.write(f"Pada tahun 2022, terdapat 321.731 kasus tumor otak di seluruh dunia, di mana 248.500 di antaranya mengalami kematian (Global Cancer Statistics 2022).")
 
-            st.header("Data Lokal (Indonesia)")
+            st.write("### Data Lokal (Indonesia)")
             st.write("Menurut Ananditha, T (2021), estimasi kasus angka kejadian dan kematian di Indonesia mencapai 6.337/5.405 yang disebabkan oleh 3 hal yaitu radiasi, rokok, dan genetik.")
 
             # Bar chart untuk kasus dan kematian di Indonesia
@@ -466,13 +470,12 @@ def about():
 
         # Tab 3: Jenis Tumor
         with tab3:
-            st.header("Jenis Tumor Otak")
-            st.write(f"Tumor otak digolongkan menjadi dua kelompok, yaitu tumor otak primer yang berasal dari jaringan otak maupun area dekatnya (sel glial atau non-glial), serta tumor otak metastasis (tumor ganas). Pada orang dewasa, tumor ganas yang paling umum menyerang adalah glioma, sedangkan tumor jinak adalah meningioma dan pituitari (Fan, et al., 2022).")
-            st.write("### 1. Meningioma")
-            st.write(f"Meningioma merupakan tumor yang berasal dari meninges yang menutupi otak dan sumsum tulang belakang. Meningioma termasuk pada jenis tumor paling umum, yaitu sebesar {36.8}% dari total CNS tumor.")
-            # Pie chart untuk proporsi tumor otak
-            labels = 'Meningioma', 'Jenis tumor lainnya'
-            sizes = [36.8, 100-36.8]
+            st.header("Statistik Kematian akibat Tumor Otak")
+            st.write(f"Pada tahun 2020, terdapat 308.120 kasus kematian, di mana 251.329 di antaranya merupakan kasus tumor otak dengan angka kematian mencapai {251329 / 308120 * 100:.2f}% (Global Cancer Statistics 2020).")
+
+            # Pie chart untuk proporsi kematian akibat tumor otak
+            labels = 'Kematian akibat tumor otak', 'Kematian lainnya'
+            sizes = [251329, 308120 - 251329]
             colors = ['#ff9999','#66b3ff']
             explode = (0.1, 0)
 
@@ -481,14 +484,6 @@ def about():
             ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 
             st.pyplot(fig1)
-            
-            st.write("### 2. Glioma")
-            st.write(f"Glioma merupakan tumor  neoplasma CNS yang berasal dari sel saraf lial, termasuk astrosit, oligodendrosit, dan sel ependymal. Jenis yang paling umum dari jenis yang paling umum dari glioma tingkat rendah adalah astrositoma dan oligodendro glioma, yang cenderung tumbuh lambat dan lamban, sedangkan glioma tingkat tinggi termasuk astrositoma anaplastik dan glioblastoma dan jauh lebih agresif dan keganasan yang tumbuh dengan cepat.")
-            st.write("### 3. Pituitari")
-            st.write(f"Pituitari merupakan tumor yang terjadi pada daerah sellar orang dewasa. Pituitari termasuk jenis tumor yang banyak diderita sebesar {15}% dari jumlah keseluruhan CNS. Tumor ini umumnya dikelompokkan berdasarkan ukurannya, yaitu microadenomas dan macroadenomas, serta berdasarkan tipe histologinya.")
-            st.image("hasil.jpg")
-
-            
 
 if selected == "Beranda":
     dashboard_page()
