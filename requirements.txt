@@ -1,7 +1,7 @@
 streamlit
-pillow
+opencv-python-headless
 numpy
-opencv-python
+pillow
 torch
 torchvision
 scikit-learn
@@ -11,4 +11,7 @@ torchsummary
 pandas
 joblib
 streamlit_option_menu
+streamlit_image_comparison
 hydralit_components
+
+
