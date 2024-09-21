@@ -1,6 +1,6 @@
 streamlit
 numpy
-scikit-image  # Example replacement for image comparison functionality
+streamlit_image_comparison
 pillow
 opencv-python
 torch
