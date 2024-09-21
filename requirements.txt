@@ -1,6 +1,7 @@
-streamlit
+streamlit==1.24.0  # Replace with a compatible version of Streamlit
+image_comparison==0.9.1  # Ensure this exists or check for alternatives
+numpy>=1.19.0,<1.22  # Ensure compatibility with your Python version
 pillow
-numpy
 opencv-python
 torch
 torchvision
@@ -12,5 +13,7 @@ pandas
 joblib
 streamlit_option_menu
 hydralit_components
-image_comparison
 requests
+
+
+
