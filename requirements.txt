@@ -1,5 +1,5 @@
 streamlit==1.24.0  # Replace with a compatible version of Streamlit
-image_comparison==0.9.1  # Ensure this exists or check for alternatives
+image_comparison
 numpy>=1.19.0,<1.22  # Ensure compatibility with your Python version
 pillow
 opencv-python
